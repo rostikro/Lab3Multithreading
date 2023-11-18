@@ -34,14 +34,14 @@ int main(int argc, char* argv[])
     std::vector<std::pair<char, int>> tasks5 {{'a', 5}, {'b', 2}, {'c', 2}, {'d', 2}, {'e', 2}, {'f', 2}, {'f', 7}, {'h', 1}, {'i', 2}, {'j', 2}, {'j', 7} };
     
     std::cout << "Execution started" << std::endl;
+    
+    std::jthread t1(threads_sync::t, tasks1);
+    std::jthread t2(threads_sync::t, tasks2);
+    std::jthread t3(threads_sync::t, tasks3);
+    std::jthread t4(threads_sync::t, tasks4);
+    std::jthread t5(threads_sync::t, tasks5);
 
-    // No sense to use jthread because at the end it is necessary to display "Execution ended" and we need to join()
-    std::thread t1(threads_sync::t, tasks1);
-    std::thread t2(threads_sync::t, tasks2);
-    std::thread t3(threads_sync::t, tasks3);
-    std::thread t4(threads_sync::t, tasks4);
-    std::thread t5(threads_sync::t, tasks5);
-
+    // Joining manually because it is necessary to display "Execution ended" when threads are done their work
     t1.join();
     t2.join();
     t3.join();
